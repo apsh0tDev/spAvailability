@@ -8,7 +8,8 @@ const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 async function fetchAndDisplayData() {
     const { data, error } = await _supabase
         .from('sportsbooks')
-        .select("*");
+        .select("*")
+        .order('name', { ascending: true }); 
 
     if (error) {
         console.error('Error fetching data:', error);
@@ -22,7 +23,7 @@ async function fetchAndDisplayData() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${item.name}</td>
-            <td style="color: ${item.available ? 'green' : 'red'};">${item.available ? 'Available' : 'Unavailable'}</td>
+            <td class="${item.available ? 'green' : 'red'}" >${item.available ? 'Available' : 'Unavailable'}</td>
         `;
         tableBody.appendChild(row);
     });
@@ -38,6 +39,35 @@ function subscribeToChanges() {
         })
         .subscribe();
 }
+
+// Function to format the current time in New York timezone
+function updateNYTime() {
+    // Get the current date and time
+    const now = new Date();
+
+    // Create a formatter for New York time
+    const options = {
+        timeZone: 'America/New_York',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        weekday: 'long', // Optional: adds the day of the week
+        hour12: true // Optional: for 12-hour format
+    };
+
+    // Format the date
+    const nyTime = new Intl.DateTimeFormat('en-US', options).format(now);
+
+    // Update the content of the date-container element
+    document.getElementById('ny-time').textContent = `${nyTime}`;
+}
+
+// Call the function once to display the time
+updateNYTime();
+
+// Optionally, update the time every second
+setInterval(updateNYTime, 1000);
+
 
 // Initial fetch and display
 fetchAndDisplayData();

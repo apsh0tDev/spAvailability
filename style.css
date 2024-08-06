@@ -1,0 +1,36 @@
+.container {
+    padding: 5%;
+    font-family: 'Nunito Sans';
+}
+
+table>thead>tr{
+    background-color: aliceblue;
+    text-align: left;
+}
+
+table>thead>tr>th {
+    padding: 10px;
+    width: 120px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+table>tbody>tr{
+    height: 40px;
+}
+table>tbody>tr>td {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.red {
+    background-color: indianred;
+    color: white;
+    text-align: center;
+}
+
+.green {
+    background-color: rgb(129, 172, 129);
+    color: white;
+    text-align: center;
+}
